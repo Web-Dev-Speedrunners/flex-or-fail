@@ -1,0 +1,13 @@
+{
+  "folders": [
+    {
+      "path": "api_root_lambda"
+    },
+    {
+      "path": "cdk"
+    },
+    {
+      "path": ".circleci"
+    }
+  ]
+}
