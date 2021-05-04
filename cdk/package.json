@@ -1,0 +1,43 @@
+{
+  "name": "cdk",
+  "version": "0.1.0",
+  "bin": {
+    "cdk": "build/cdk/index.js"
+  },
+  "scripts": {
+    "build:cdk": "tsc",
+    "build:api_root_lambda": "cd ../api_root_lambda && yarn install && npm run build && cd ../cdk",
+    "build": "yarn run build:api_root_lambda && yarn run build:cdk",
+    "deploy": "npm run build && cdk deploy",
+    "test": "jest",
+    "lint": "eslint . --ext .ts,.js ./",
+    "lint:fix": "yarn run lint --fix",
+    "cdk": "cdk"
+  },
+  "devDependencies": {
+    "@aws-cdk/assert": "1.101.0",
+    "@babel/core": "^7.13.8",
+    "@babel/preset-env": "^7.13.9",
+    "@babel/preset-typescript": "^7.13.0",
+    "@types/jest": "^26.0.20",
+    "@types/node": "10.17.27",
+    "@typescript-eslint/eslint-plugin": "^4.16.1",
+    "@typescript-eslint/parser": "^4.16.1",
+    "aws-cdk": "1.101.0",
+    "babel-jest": "^26.6.3",
+    "eslint": "^7.21.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "jest": "^26.4.2",
+    "ts-jest": "^26.2.0",
+    "ts-node": "^9.0.0",
+    "typescript": "~3.9.7"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-apigateway": "1.101.0",
+    "@aws-cdk/aws-lambda": "1.101.0",
+    "@aws-cdk/core": "1.101.0",
+    "dotenv": "^8.2.0",
+    "source-map-support": "^0.5.16"
+  }
+}
