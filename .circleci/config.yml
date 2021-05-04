@@ -1,0 +1,92 @@
+version: 2.1
+orbs:
+  node: circleci/node@4.1.0
+
+
+parameters:
+  cdk-dir:
+    type: string
+    default: "~/project/cdk"
+  lambda-dir:
+    type: string
+    default: "~/project/api_root_lambda"
+
+
+jobs:
+
+  lambda_sanity_check:
+    executor: node/default
+    steps:
+      - checkout
+      - node/install-packages:
+          app-dir: << pipeline.parameters.lambda-dir >>
+          cache-path: << pipeline.parameters.lambda-dir >>/node_modules
+          pkg-manager: yarn
+      - run:
+          working_directory: << pipeline.parameters.lambda-dir >>
+          command: npm run lint
+          name: Lint Checks
+      - run:
+          working_directory: << pipeline.parameters.lambda-dir >>
+          command: npm run test
+          name: Run Tests
+
+  cdk_sanity_check:
+    executor: node/default
+    steps:
+      - checkout
+      - node/install-packages:
+          app-dir: << pipeline.parameters.lambda-dir >>
+          cache-path: << pipeline.parameters.lambda-dir >>/node_modules
+          pkg-manager: yarn
+      - node/install-packages:
+          app-dir: << pipeline.parameters.cdk-dir >>
+          cache-path: << pipeline.parameters.cdk-dir >>/node_modules
+          pkg-manager: yarn
+      - run:
+          working_directory: << pipeline.parameters.cdk-dir >>
+          command: npm run lint
+          name: Lint Check
+      - run:
+          working_directory: << pipeline.parameters.cdk-dir >>
+          command: npm run build
+          name: Build Check
+      - run:
+          working_directory: << pipeline.parameters.cdk-dir >>
+          name: Deployable Check
+          command: yarn run cdk synth
+
+  deploy_cdk_app:
+    executor: node/default
+    environment:
+      NODE_ENV: prod
+    steps:
+      - checkout
+      - node/install-packages:
+          app-dir: << pipeline.parameters.lambda-dir >>
+          cache-path: << pipeline.parameters.lambda-dir >>/node_modules
+          pkg-manager: yarn
+      - node/install-packages:
+          app-dir: << pipeline.parameters.cdk-dir >>
+          cache-path: << pipeline.parameters.cdk-dir >>/node_modules
+          pkg-manager: yarn
+      - run:
+          working_directory: << pipeline.parameters.cdk-dir >>
+          command: yarn run build
+          name: Build App
+      - run:
+          working_directory: << pipeline.parameters.cdk-dir >>
+          command: yarn run cdk deploy --require-approval never
+          name: Deploy
+
+workflows:
+  merge_check:
+    jobs:
+      - lambda_sanity_check
+      - cdk_sanity_check
+  deployment:
+    jobs:
+      - deploy_cdk_app:
+          filters:
+            branches:
+              only: master
