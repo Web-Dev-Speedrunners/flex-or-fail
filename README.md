@@ -1,10 +1,10 @@
 # App Backend
 
-[![CircleCI](https://circleci.com/gh/Web-Dev-Speedrunners/Dog-facts-API.svg?style=svg)](https://app.circleci.com/pipelines/github/Web-Dev-Speedrunners/Dog-facts-API)
+[![CircleCI](https://circleci.com/gh/Web-Dev-Speedrunners/flex-or-fail.svg?style=svg)](https://app.circleci.com/pipelines/github/Web-Dev-Speedrunners/flex-or-fail)
 
 ## Overview
 
-Live: https://evaxn9xqz0.execute-api.us-east-1.amazonaws.com/prod
+Live API: https://7vr20ojjo0.execute-api.us-east-1.amazonaws.com/prod
 
 ## Requirements
 
