@@ -9,8 +9,8 @@ import {
 import * as cdk from '@aws-cdk/core';
 import { StackProps } from '@aws-cdk/core';
 import * as dotenv from 'dotenv';
-import { APP_NAME } from '../../constant/app';
 import AppStage from '../../constant/app_stage';
+import { resourceName } from '../../util/resource';
 import { GetENVOrThrow } from '../../util/setup';
 
 dotenv.config();
@@ -58,5 +58,5 @@ export default class RootStack extends cdk.Stack {
     });
   }
 
-  private resName = (res: string) : string => `${APP_NAME}-${res}-${this.stage}`
+  private resName = (name: string) : string => resourceName(name, this.stage)
 }
