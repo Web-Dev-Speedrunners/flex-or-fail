@@ -6,6 +6,8 @@
 
 Live API: https://7vr20ojjo0.execute-api.us-east-1.amazonaws.com/prod
 
+Project Tracker: https://github.com/Web-Dev-Speedrunners/flex-or-fail/projects/1
+
 ## Requirements
 
 - [NodeJS 12](https://github.com/nvm-sh/nvm)
