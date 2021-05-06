@@ -5,14 +5,17 @@
     "lint": "eslint . --ext .ts,.js ./",
     "lint:fix": "yarn run lint --fix",
     "db:sync": "ts-node src/__dev__/sync_db.ts",
+    "ts": "ts-node",
     "server:local": "nodemon"
   },
   "dependencies": {
     "@vendia/serverless-express": "^4.3.4",
+    "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "joi": "^17.4.0",
     "pg": "^8.6.0",
     "pg-hstore": "^2.3.3",
     "sequelize": "^6.6.2"

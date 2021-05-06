@@ -11,6 +11,7 @@
  */
 
 import minimist from 'minimist';
+import { exit } from 'process';
 import DatabaseConfig from '../config/database';
 import sequelize from '../service/database';
 
@@ -22,8 +23,10 @@ async function run(): Promise<void> {
     console.log(`Syncing database: ${DatabaseConfig.Name}`);
     console.log(`\tforce: ${force}`);
     await sequelize.sync({ force });
+    exit(0);
   } catch (error) {
     console.log(error);
+    exit(1);
   }
 }
 
