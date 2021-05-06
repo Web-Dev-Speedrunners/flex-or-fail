@@ -10,3 +10,10 @@ export const CreateStudentValidator = Joi.object({
   email: EMAILValidator.required(),
   imageUrl: Joi.string().optional(),
 });
+
+export const CreateCampusValidator = Joi.object({
+  name: Joi.string().required(),
+  address: Joi.string().required(),
+  description: Joi.string().required(),
+  imageUrl: Joi.string().optional(),
+});
