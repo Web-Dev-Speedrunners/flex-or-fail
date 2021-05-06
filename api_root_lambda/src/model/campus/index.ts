@@ -11,9 +11,13 @@ export type CampusModelCreateProps = {
 
 export default class CampusModel {
   id: number;
+
   name: string;
+
   address: string;
+
   description: string;
+
   imageUrl: string;
 
   private constructor(dbCampus: CampusSequelizeModel) {
@@ -31,18 +35,18 @@ export default class CampusModel {
     const {
       name,
       address,
-      description
+      description,
     } = props;
-    const imageUrl = props.imageUrl? props.imageUrl : await GetRandomImageUrl({
+    const imageUrl = props.imageUrl ? props.imageUrl : await GetRandomImageUrl({
       width: 400,
-      height: 400
+      height: 400,
     });
 
     const dbCampus = await CampusSequelizeModel.create({
       name,
       address,
       description,
-      imageUrl
+      imageUrl,
     });
 
     return new CampusModel(dbCampus);

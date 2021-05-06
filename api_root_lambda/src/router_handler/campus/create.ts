@@ -9,6 +9,6 @@ const CreateCampusRequestHandler: RequestHandler = async (req, res, next) => {
     console.error(err.message);
     return next(err);
   }
-}
+};
 
 export default CreateCampusRequestHandler;
