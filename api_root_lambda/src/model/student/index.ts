@@ -91,5 +91,4 @@ export default class StudentModel {
       where: { id: studentId },
     });
   }
-
 }
