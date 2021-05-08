@@ -71,17 +71,15 @@ export default class StudentModel {
   }
 
   static async EnrollStudent(studentId: string, campusId: string): Promise<void> {
-    // Check both studentId and campusId are valid 
+    // Check both studentId and campusId are valid
     await this.GetById(studentId);
     await CampusModel.GetById(campusId);
 
     await StudentSequelizeModel.update({
-      campusId
+      campusId,
     }, {
-      where: { id: studentId }
+      where: { id: studentId },
     });
-
-    return; 
   }
 
   static async UnenrollStudent(studentId: string): Promise<void> {
@@ -92,8 +90,6 @@ export default class StudentModel {
     }, {
       where: { id: studentId },
     });
-
-    return;
   }
-  
+
 }

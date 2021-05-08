@@ -1,11 +1,11 @@
-import { RequestHandler } from "express";
-import StudentModel from "../../model/student";
-import logger from "../../util/logger";
+import { RequestHandler } from 'express';
+import StudentModel from '../../model/student';
+import logger from '../../util/logger';
 
 const EnrollStudentRequestHandler: RequestHandler = async (req, res, next) => {
   const TAG = EnrollStudentRequestHandler.name;
   try {
-    const studentId = req.params.studentId;
+    const { studentId } = req.params;
     const campusId = req.body.id;
     await StudentModel.EnrollStudent(studentId, campusId);
     return res.status(200).json();
@@ -13,6 +13,6 @@ const EnrollStudentRequestHandler: RequestHandler = async (req, res, next) => {
     logger.error(TAG, err);
     return next(err);
   }
-}
+};
 
 export default EnrollStudentRequestHandler;

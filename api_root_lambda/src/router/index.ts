@@ -30,7 +30,7 @@ router.route('/student/:studentId/enroll')
 router.route('/student/:studentId/unenroll')
   .post(UnenrollStudentRequestHandler);
 
-  router.route('/campus')
+router.route('/campus')
   .get(GetAllCampusRequestHandler)
   .post(CreateCampusRequestHandler);
 
