@@ -4,6 +4,7 @@ import CreateStudentRequestHandler from '../router_handler/student/create';
 import GetAllStudentRequestHandler from '../router_handler/student/get_all';
 import CreateCampusRequestHandler from '../router_handler/campus/create';
 import GetAllCampusRequestHandler from '../router_handler/campus/get_all';
+import GetStudentByIdRequestHandler from '../router_handler/student/get_by_id';
 
 const router = Router();
 
@@ -16,6 +17,9 @@ router.route('/echo')
 router.route('/student')
   .get(GetAllStudentRequestHandler)
   .post(CreateStudentRequestHandler);
+
+router.route('/student/:studentId')
+  .get(GetStudentByIdRequestHandler);
 
 router.route('/campus')
   .get(GetAllCampusRequestHandler)

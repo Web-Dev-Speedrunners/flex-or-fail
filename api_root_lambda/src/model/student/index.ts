@@ -1,14 +1,15 @@
 import { StudentSequelizeModel } from '../../service/database';
 import GetRandomImageUrl from '../../service/placeholder/get_random_image_url';
 import { CreateStudentValidator } from '../../util/validator';
+import StudentModelError, { StudentModelErrorType } from './error';
 
 export type StudentModelCreateProps = {
-  firstName: string
-  lastName: string,
-  gpa: number,
-  email: string,
-  imageUrl?: string
-}
+  firstName: string;
+  lastName: string;
+  gpa: number;
+  email: string;
+  imageUrl?: string;
+};
 
 export default class StudentModel {
   id: number;
@@ -32,18 +33,19 @@ export default class StudentModel {
     this.imageUrl = dbStudent.imageUrl;
   }
 
-  static async CreateStudent(props: StudentModelCreateProps) : Promise<StudentModel> {
+  static async CreateStudent(
+    props: StudentModelCreateProps,
+  ): Promise<StudentModel> {
     await CreateStudentValidator.validateAsync(props);
     const {
-      firstName,
-      lastName,
-      email,
-      gpa,
+      firstName, lastName, email, gpa,
     } = props;
-    const imageUrl = props.imageUrl ? props.imageUrl : await GetRandomImageUrl({
-      width: 400,
-      height: 400,
-    });
+    const imageUrl = props.imageUrl
+      ? props.imageUrl
+      : await GetRandomImageUrl({
+        width: 400,
+        height: 400,
+      });
     const dbStudent = await StudentSequelizeModel.create({
       firstName,
       lastName,
@@ -54,8 +56,16 @@ export default class StudentModel {
     return new StudentModel(dbStudent);
   }
 
-  static async GetAll() : Promise<StudentModel[]> {
+  static async GetAll(): Promise<StudentModel[]> {
     const students = await StudentSequelizeModel.findAll({ where: {} });
     return students.map((dbStudent) => new StudentModel(dbStudent));
+  }
+
+  static async GetById(studentId: string): Promise<StudentModel> {
+    const student = await StudentSequelizeModel.findByPk(studentId);
+    if (student === undefined || student === null) {
+      throw new StudentModelError(StudentModelErrorType.UserDoesntExist);
+    }
+    return new StudentModel(student);
   }
 }
