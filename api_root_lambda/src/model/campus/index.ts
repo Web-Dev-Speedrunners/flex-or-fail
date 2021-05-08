@@ -1,6 +1,7 @@
 import { CampusSequelizeModel } from '../../service/database';
 import GetRandomImageUrl from '../../service/placeholder/get_random_image_url';
 import { CreateCampusValidator } from '../../util/validator';
+import CampusModelError, { CampusModelErrorType } from './error';
 
 export type CampusModelCreateProps = {
   name: string,
@@ -55,5 +56,13 @@ export default class CampusModel {
   static async GetAll(): Promise<Array<CampusModel>> {
     const dbCampuses = await CampusSequelizeModel.findAll({ where: {} });
     return dbCampuses.map((dbCampus) => new CampusModel(dbCampus));
+  }
+
+  static async GetById(campusId: string) : Promise<CampusModel> {
+    const dbCampus = await CampusSequelizeModel.findByPk(campusId);
+    if (dbCampus === undefined || dbCampus === null) {
+      throw new CampusModelError(CampusModelErrorType.CampusDoesntExist);
+    }
+    return new CampusModel(dbCampus);
   }
 }

@@ -4,6 +4,8 @@ import CreateStudentRequestHandler from '../router_handler/student/create';
 import GetAllStudentRequestHandler from '../router_handler/student/get_all';
 import CreateCampusRequestHandler from '../router_handler/campus/create';
 import GetAllCampusRequestHandler from '../router_handler/campus/get_all';
+import GetStudentByIdRequestHandler from '../router_handler/student/get_by_id';
+import GetCampusByIdRequestHandler from '../router_handler/campus/get_by_id';
 
 const router = Router();
 
@@ -17,9 +19,15 @@ router.route('/student')
   .get(GetAllStudentRequestHandler)
   .post(CreateStudentRequestHandler);
 
+router.route('/student/:studentId')
+  .get(GetStudentByIdRequestHandler);
+
 router.route('/campus')
   .get(GetAllCampusRequestHandler)
   .post(CreateCampusRequestHandler);
+
+router.route('/campus/:campusId')
+  .get(GetCampusByIdRequestHandler);
 
 router.route('/').get((_, res) => {
   res.status(200).json({ message: 'Campus Solution API' });
