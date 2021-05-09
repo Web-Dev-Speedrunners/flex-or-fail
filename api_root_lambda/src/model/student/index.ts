@@ -1,6 +1,7 @@
 import { StudentSequelizeModel } from '../../service/database';
 import GetRandomImageUrl from '../../service/placeholder/get_random_image_url';
 import { CreateStudentValidator } from '../../util/validator';
+import CampusModel from '../campus';
 import StudentModelError, { StudentModelErrorType } from './error';
 
 export type StudentModelCreateProps = {
@@ -67,5 +68,27 @@ export default class StudentModel {
       throw new StudentModelError(StudentModelErrorType.UserDoesntExist);
     }
     return new StudentModel(student);
+  }
+
+  static async EnrollStudent(studentId: string, campusId: string): Promise<void> {
+    // Check both studentId and campusId are valid
+    await this.GetById(studentId);
+    await CampusModel.GetById(campusId);
+
+    await StudentSequelizeModel.update({
+      campusId,
+    }, {
+      where: { id: studentId },
+    });
+  }
+
+  static async UnenrollStudent(studentId: string): Promise<void> {
+    await this.GetById(studentId);
+
+    await StudentSequelizeModel.update({
+      campusId: null,
+    }, {
+      where: { id: studentId },
+    });
   }
 }

@@ -6,6 +6,8 @@ import CreateCampusRequestHandler from '../router_handler/campus/create';
 import GetAllCampusRequestHandler from '../router_handler/campus/get_all';
 import GetStudentByIdRequestHandler from '../router_handler/student/get_by_id';
 import GetCampusByIdRequestHandler from '../router_handler/campus/get_by_id';
+import EnrollStudentRequestHandler from '../router_handler/student/enroll';
+import UnenrollStudentRequestHandler from '../router_handler/student/unenroll';
 
 const router = Router();
 
@@ -21,6 +23,12 @@ router.route('/student')
 
 router.route('/student/:studentId')
   .get(GetStudentByIdRequestHandler);
+
+router.route('/student/:studentId/enroll')
+  .post(EnrollStudentRequestHandler);
+
+router.route('/student/:studentId/unenroll')
+  .post(UnenrollStudentRequestHandler);
 
 router.route('/campus')
   .get(GetAllCampusRequestHandler)
