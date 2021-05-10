@@ -58,13 +58,13 @@ export default class CampusModel {
     if (dbCampus === undefined || dbCampus === null) {
       throw new CampusModelError(CampusModelErrorType.CampusDoesntExist);
     }
-    const dbStudents = await StudentSequelizeModel.update({
+    // Remove campus association from students who are enrolled
+    await StudentSequelizeModel.update({
       campusId: null,
     }, {
       where: { campusId: dbCampus.id },
     });
-
-    // dbStudents.forEach(async (dbStudent) => await dbStudent.destroy());
+    // Delete Campus 
     await dbCampus.destroy();
   }
 
@@ -80,4 +80,5 @@ export default class CampusModel {
     }
     return new CampusModel(dbCampus);
   }
+
 }
