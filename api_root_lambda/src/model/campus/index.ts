@@ -64,7 +64,7 @@ export default class CampusModel {
     }, {
       where: { campusId: dbCampus.id },
     });
-    // Delete Campus 
+    // Delete Campus
     await dbCampus.destroy();
   }
 
@@ -80,5 +80,4 @@ export default class CampusModel {
     }
     return new CampusModel(dbCampus);
   }
-
 }

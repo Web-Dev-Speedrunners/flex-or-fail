@@ -106,5 +106,4 @@ export default class StudentModel {
 
     return students.map((student) => new StudentModel(student));
   }
-
 }
