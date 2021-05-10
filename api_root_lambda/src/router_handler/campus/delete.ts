@@ -12,6 +12,6 @@ const DeleteCampusRequestHandler: RequestHandler = async (req, res, next) => {
     logger.error(TAG, err);
     return next(err);
   }
-}
+};
 
 export default DeleteCampusRequestHandler;

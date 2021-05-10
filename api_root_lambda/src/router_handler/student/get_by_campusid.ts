@@ -14,6 +14,6 @@ const GetAllStudentsByCampusRequestHandler: RequestHandler = async (req, res, ne
     logger.error(TAG, err);
     return next(err);
   }
-}
+};
 
 export default GetAllStudentsByCampusRequestHandler;
