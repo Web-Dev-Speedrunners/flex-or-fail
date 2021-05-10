@@ -8,7 +8,7 @@ import GetStudentByIdRequestHandler from '../router_handler/student/get_by_id';
 import GetCampusByIdRequestHandler from '../router_handler/campus/get_by_id';
 import EnrollStudentRequestHandler from '../router_handler/student/enroll';
 import UnenrollStudentRequestHandler from '../router_handler/student/unenroll';
-import GetAllStudentsByCampusRequestHandler from '../router_handler/student/get_by_campusid';
+import GetAllStudentsByCampusRequestHandler from '../router_handler/campus/get_students_by_campusid';
 import DeleteCampusRequestHandler from '../router_handler/campus/delete';
 
 const router = Router();
