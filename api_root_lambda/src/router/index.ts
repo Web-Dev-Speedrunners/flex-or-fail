@@ -39,13 +39,11 @@ router.route('/campus')
 
 router.route('/campus/:campusId')
   .get(GetCampusByIdRequestHandler)
-  .delete(DeleteCampusRequestHandler);
+  .delete(DeleteCampusRequestHandler)
+  .patch(UpdateCampusRequestHandler);
 
 router.route('/campus/:campusId/students')
   .get(GetAllStudentsByCampusRequestHandler);
-
-router.route('/campus/:campusId')
-  .patch(UpdateCampusRequestHandler);
 
 router.route('/').get((_, res) => {
   res.status(200).json({ message: 'Campus Solution API' });
