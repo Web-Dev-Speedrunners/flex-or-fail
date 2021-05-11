@@ -12,6 +12,8 @@ export type StudentModelCreateProps = {
   imageUrl?: string;
 };
 
+export type StudentModelUpdateProps = Partial<StudentModelCreateProps>
+
 export default class StudentModel {
   id: number;
 
@@ -105,5 +107,14 @@ export default class StudentModel {
     });
 
     return students.map((student) => new StudentModel(student));
+  }
+
+  static async UpdateStudent(studentId: number, updates: StudentModelUpdateProps) : Promise<void> {
+    const [updateCount] = await StudentSequelizeModel.update(updates, {
+      where: {
+        id: studentId,
+      },
+    });
+    if (updateCount === 0) throw new StudentModelError(StudentModelErrorType.UserDoesntExist);
   }
 }

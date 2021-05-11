@@ -11,6 +11,7 @@ import UnenrollStudentRequestHandler from '../router_handler/student/unenroll';
 import GetAllStudentsByCampusRequestHandler from '../router_handler/campus/get_students_by_campusid';
 import DeleteCampusRequestHandler from '../router_handler/campus/delete';
 import UpdateCampusRequestHandler from '../router_handler/campus/update_campus';
+import UpdateStudentRequestHandler from '../router_handler/student/update';
 
 const router = Router();
 
@@ -25,7 +26,8 @@ router.route('/student')
   .post(CreateStudentRequestHandler);
 
 router.route('/student/:studentId')
-  .get(GetStudentByIdRequestHandler);
+  .get(GetStudentByIdRequestHandler)
+  .patch(UpdateStudentRequestHandler);
 
 router.route('/student/:studentId/enroll')
   .post(EnrollStudentRequestHandler);
