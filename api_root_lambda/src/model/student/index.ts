@@ -1,4 +1,4 @@
-import { StudentSequelizeModel } from '../../service/database';
+import { StudentSequelizeModel, CampusSequelizeModel } from '../../service/database';
 import GetRandomImageUrl from '../../service/placeholder/get_random_image_url';
 import { CreateStudentValidator } from '../../util/validator';
 import CampusModel from '../campus';
@@ -90,5 +90,20 @@ export default class StudentModel {
     }, {
       where: { id: studentId },
     });
+  }
+
+  static async GetStudentsInCampus(campusId: string): Promise<StudentModel[]> {
+    const campus = await CampusSequelizeModel.findByPk(campusId);
+    if (campus === undefined || campus === null) {
+      throw new StudentModelError(StudentModelErrorType.CampusDoesntExist);
+    }
+
+    const students = await StudentSequelizeModel.findAll({
+      where: {
+        campusId: campus.id,
+      },
+    });
+
+    return students.map((student) => new StudentModel(student));
   }
 }

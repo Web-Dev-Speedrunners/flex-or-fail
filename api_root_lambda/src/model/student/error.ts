@@ -1,9 +1,11 @@
 export enum StudentModelErrorType {
-  UserDoesntExist
+  UserDoesntExist,
+  CampusDoesntExist,
 }
 
 const ErrorTypeMessage : Record<StudentModelErrorType, string> = {
   [StudentModelErrorType.UserDoesntExist]: "Student doesn't exists",
+  [StudentModelErrorType.CampusDoesntExist]: "Campus doesn't exists",
 };
 
 export default class StudentModelError extends Error {

@@ -1,4 +1,4 @@
-import { CampusSequelizeModel } from '../../service/database';
+import { StudentSequelizeModel, CampusSequelizeModel } from '../../service/database';
 import GetRandomImageUrl from '../../service/placeholder/get_random_image_url';
 import { CreateCampusValidator } from '../../util/validator';
 import CampusModelError, { CampusModelErrorType } from './error';
@@ -51,6 +51,21 @@ export default class CampusModel {
     });
 
     return new CampusModel(dbCampus);
+  }
+
+  static async DeleteCampus(campusId: string): Promise<void> {
+    const dbCampus = await CampusSequelizeModel.findByPk(campusId);
+    if (dbCampus === undefined || dbCampus === null) {
+      throw new CampusModelError(CampusModelErrorType.CampusDoesntExist);
+    }
+    // Remove campus association from students who are enrolled
+    await StudentSequelizeModel.update({
+      campusId: null,
+    }, {
+      where: { campusId: dbCampus.id },
+    });
+    // Delete Campus
+    await dbCampus.destroy();
   }
 
   static async GetAll(): Promise<Array<CampusModel>> {
