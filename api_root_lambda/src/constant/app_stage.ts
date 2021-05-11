@@ -1,7 +1,8 @@
 enum AppStage {
   Dev = 'dev',
   Test = 'test',
-  Prod = 'prod'
+  Prod = 'prod',
+  Local = 'local'
 }
 
 function getAppStage() : AppStage {
@@ -13,6 +14,8 @@ function getAppStage() : AppStage {
       return AppStage.Test;
     case 'prod':
       return AppStage.Prod;
+    case 'local':
+      return AppStage.Local;
     default:
       return AppStage.Dev;
   }

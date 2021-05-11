@@ -6,7 +6,7 @@
     "lint:fix": "yarn run lint --fix",
     "db:sync": "ts-node src/__dev__/sync_db.ts",
     "ts": "ts-node",
-    "server:local": "nodemon"
+    "server:local": "NODE_ENV=local nodemon"
   },
   "dependencies": {
     "@vendia/serverless-express": "^4.3.4",
