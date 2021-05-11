@@ -10,6 +10,7 @@ import EnrollStudentRequestHandler from '../router_handler/student/enroll';
 import UnenrollStudentRequestHandler from '../router_handler/student/unenroll';
 import GetAllStudentsByCampusRequestHandler from '../router_handler/campus/get_students_by_campusid';
 import DeleteCampusRequestHandler from '../router_handler/campus/delete';
+import UpdateCampusRequestHandler from '../router_handler/campus/update_campus';
 
 const router = Router();
 
@@ -42,6 +43,9 @@ router.route('/campus/:campusId')
 
 router.route('/campus/:campusId/students')
   .get(GetAllStudentsByCampusRequestHandler);
+
+router.route('/campus/:campusId')
+  .patch(UpdateCampusRequestHandler);
 
 router.route('/').get((_, res) => {
   res.status(200).json({ message: 'Campus Solution API' });
