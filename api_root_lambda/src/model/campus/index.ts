@@ -10,6 +10,8 @@ export type CampusModelCreateProps = {
   imageUrl?: string,
 }
 
+export type CampusModelUpdateProps = Partial<CampusModelCreateProps>
+
 export default class CampusModel {
   id: number;
 
@@ -71,6 +73,17 @@ export default class CampusModel {
   static async GetAll(): Promise<Array<CampusModel>> {
     const dbCampuses = await CampusSequelizeModel.findAll({ where: {} });
     return dbCampuses.map((dbCampus) => new CampusModel(dbCampus));
+  }
+
+  static async Update(
+    campusId: number, updates: CampusModelUpdateProps,
+  ) : Promise<void> {
+    const [updateCount] = await CampusSequelizeModel.update(updates, {
+      where: {
+        id: campusId,
+      },
+    });
+    if (updateCount === 0) throw new CampusModelError(CampusModelErrorType.CampusDoesntExist);
   }
 
   static async GetById(campusId: string) : Promise<CampusModel> {
