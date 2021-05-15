@@ -95,7 +95,10 @@ export default class CampusModel {
   }
 
   static async GetRecentCampuses(queryLimit?: number): Promise<CampusModel[]> {
-    let limit = queryLimit ? queryLimit : 10;
+    let limit = 10;
+    if (queryLimit) {
+      limit = queryLimit;
+    }
     const dbRecentCampuses = await CampusSequelizeModel.findAll({
       order: [['createdAt', 'DESC']],
       limit: limit,

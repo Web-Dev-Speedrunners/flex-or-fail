@@ -110,7 +110,10 @@ export default class StudentModel {
   }
 
   static async GetRecentStudents(queryLimit?: number): Promise<StudentModel[]> {
-    let limit = queryLimit ? queryLimit : 10;
+    let limit = 10;
+    if (queryLimit) {
+      limit = queryLimit;
+    }
     const dbRecentStudents = await StudentSequelizeModel.findAll({
       order: [['createdAt', 'DESC']],
       limit: limit,
