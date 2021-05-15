@@ -26,7 +26,7 @@ router.route('/student')
   .get(GetAllStudentRequestHandler)
   .post(CreateStudentRequestHandler);
 
-router.route('/student/recents')
+router.route('/student/recent')
   .get(GetRecentStudentsRequestHandler);
 
 router.route('/student/:studentId')
