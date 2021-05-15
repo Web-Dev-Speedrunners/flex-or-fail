@@ -93,4 +93,13 @@ export default class CampusModel {
     }
     return new CampusModel(dbCampus);
   }
+
+  static async GetRecentCampuses(queryLimit?: number): Promise<CampusModel[]> {
+    let limit = queryLimit ? queryLimit : 10;
+    const dbRecentCampuses = await CampusSequelizeModel.findAll({
+      order: [['createdAt', 'DESC']],
+      limit: limit,
+    });
+    return dbRecentCampuses.map((campus) => new CampusModel(campus));
+  }
 }
