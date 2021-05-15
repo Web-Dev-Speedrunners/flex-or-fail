@@ -101,7 +101,7 @@ export default class CampusModel {
     }
     const dbRecentCampuses = await CampusSequelizeModel.findAll({
       order: [['createdAt', 'DESC']],
-      limit: limit,
+      limit,
     });
     return dbRecentCampuses.map((campus) => new CampusModel(campus));
   }

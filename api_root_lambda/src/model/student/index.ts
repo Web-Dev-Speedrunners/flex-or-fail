@@ -116,7 +116,7 @@ export default class StudentModel {
     }
     const dbRecentStudents = await StudentSequelizeModel.findAll({
       order: [['createdAt', 'DESC']],
-      limit: limit,
+      limit,
     });
     return dbRecentStudents.map((student) => new StudentModel(student));
   }
