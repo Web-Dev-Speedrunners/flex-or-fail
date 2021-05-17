@@ -129,4 +129,12 @@ export default class StudentModel {
     });
     if (updateCount === 0) throw new StudentModelError(StudentModelErrorType.UserDoesntExist);
   }
+
+  static async DeleteStudent(studentId: number) : Promise<void> {
+    await StudentSequelizeModel.destroy({
+      where: {
+        id: studentId,
+      },
+    });
+  }
 }
