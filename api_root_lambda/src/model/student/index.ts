@@ -109,6 +109,18 @@ export default class StudentModel {
     return students.map((student) => new StudentModel(student));
   }
 
+  static async GetRecentStudents(queryLimit?: number): Promise<StudentModel[]> {
+    let limit = 10;
+    if (queryLimit) {
+      limit = queryLimit;
+    }
+    const dbRecentStudents = await StudentSequelizeModel.findAll({
+      order: [['createdAt', 'DESC']],
+      limit,
+    });
+    return dbRecentStudents.map((student) => new StudentModel(student));
+  }
+
   static async UpdateStudent(studentId: number, updates: StudentModelUpdateProps) : Promise<void> {
     const [updateCount] = await StudentSequelizeModel.update(updates, {
       where: {
