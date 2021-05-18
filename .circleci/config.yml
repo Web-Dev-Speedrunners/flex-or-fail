@@ -89,4 +89,4 @@ workflows:
       - deploy_cdk_app:
           filters:
             branches:
-              only: master
+              only: main
