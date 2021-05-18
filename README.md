@@ -4,7 +4,7 @@
 
 ## Overview
 
-Live API: https://7vr20ojjo0.execute-api.us-east-1.amazonaws.com/prod
+Live API: https://r1chy5zeeh.execute-api.us-east-1.amazonaws.com/prod
 
 Project Tracker: https://github.com/Web-Dev-Speedrunners/flex-or-fail/projects/1
 
