@@ -114,7 +114,7 @@ export default class CampusModel {
     if (dbStudent.campusId === undefined || dbStudent.campusId === null) {
       throw new CampusModelError(CampusModelErrorType.StudentIsntEnrolled);
     }
-    
+
     const dbCampus = await CampusSequelizeModel.findByPk(dbStudent.campusId);
     if (dbCampus === undefined || dbCampus === null) {
       throw new CampusModelError(CampusModelErrorType.CampusDoesntExist);
