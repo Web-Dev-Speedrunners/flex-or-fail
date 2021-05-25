@@ -9,9 +9,9 @@ const GetCampusByStudentRequestHandler: RequestHandler = async (req, res, next) 
     const campus = await CampusModel.GetCampusEnrolledIn(studentId);
     return res.status(200).json(campus);
   } catch (error) {
-    logger.error(TAG, error)
+    logger.error(TAG, error);
     return next(error);
   }
-}
+};
 
-export default GetCampusByStudentRequestHandler
+export default GetCampusByStudentRequestHandler;
