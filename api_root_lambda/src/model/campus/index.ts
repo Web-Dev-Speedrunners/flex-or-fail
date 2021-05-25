@@ -105,4 +105,20 @@ export default class CampusModel {
     });
     return dbRecentCampuses.map((campus) => new CampusModel(campus));
   }
+
+  static async GetCampusEnrolledIn(studentId: string) : Promise<CampusModel> {
+    const dbStudent = await StudentSequelizeModel.findByPk(studentId);
+    if (dbStudent === undefined || dbStudent === null) {
+      throw new CampusModelError(CampusModelErrorType.StudentDoesntExist);
+    }
+    if (dbStudent.campusId === undefined || dbStudent.campusId === null) {
+      throw new CampusModelError(CampusModelErrorType.StudentIsntEnrolled);
+    }
+    
+    const dbCampus = await CampusSequelizeModel.findByPk(dbStudent.campusId);
+    if (dbCampus === undefined || dbCampus === null) {
+      throw new CampusModelError(CampusModelErrorType.CampusDoesntExist);
+    }
+    return new CampusModel(dbCampus);
+  }
 }
